@@ -10,23 +10,15 @@ tokens = ['ID',
           'ASSIGN',
           'NUMBER',
           'STRING',
-          'LPAREN',
-          'RPAREN',
           'LCURLY',
           'RCURLY',
           'COMMA',
-          'COLON',
-          'DOT'
           ] + list(reserved.values())
 
 t_ASSIGN = r'='
-t_LPAREN = r'\('
-t_RPAREN = r'\)'
 t_LCURLY = r'\{'
 t_RCURLY = r'\}'
 t_COMMA = r','
-t_COLON = r':'
-t_DOT = r'\.'
 
 
 def t_ID(t):
@@ -59,14 +51,11 @@ lexer = lex.lex()
 
 data = '''
 local a = 10
-local arr = {1, 2, 3}
-MyClass = {}
-function MyClass:new(o)
-    o = o or {}
-    setmetatable(o, self)
-    self.__index = self
-    return o
-end
+b = 321
+local arr1 = {1, 2, 3}
+arr2 = {4, 5, 6}
+class = {}
+MyClass = {property = 0}
 '''
 
 lexer.input(data)
