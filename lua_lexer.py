@@ -10,15 +10,23 @@ tokens = ['ID',
           'ASSIGN',
           'NUMBER',
           'STRING',
+          'LPAREN',
+          'RPAREN',
           'LCURLY',
           'RCURLY',
           'COMMA',
+          'COLON',
+          'DOT'
           ] + list(reserved.values())
 
 t_ASSIGN = r'='
+t_LPAREN = r'\('
+t_RPAREN = r'\)'
 t_LCURLY = r'\{'
 t_RCURLY = r'\}'
 t_COMMA = r','
+t_COLON = r':'
+t_DOT = r'\.'
 
 
 def t_ID(t):
