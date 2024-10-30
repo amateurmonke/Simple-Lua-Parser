@@ -59,14 +59,11 @@ lexer = lex.lex()
 
 data = '''
 local a = 10
-local arr = {1, 2, 3}
-MyClass = {}
-function MyClass:new(o)
-    o = o or {}
-    setmetatable(o, self)
-    self.__index = self
-    return o
-end
+b = 321
+local arr1 = {1, 2, 3}
+arr2 = {4, 5, 6}
+class = {}
+MyClass = {property = 0}
 '''
 
 lexer.input(data)
