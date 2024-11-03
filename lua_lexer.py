@@ -43,7 +43,6 @@ def t_NUMBER(t):
 
 def t_STRING(t):
     r'\".*?"'
-    t.value = t.value[1:-1]
     return t
 
 
@@ -59,7 +58,7 @@ lexer = lex.lex()
 
 data = '''
 local a = 10
-b = 321
+b = "Hello, World!"
 local arr1 = {1, 2, 3}
 arr2 = {4, 5, 6}
 class = {}
