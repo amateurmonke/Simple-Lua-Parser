@@ -27,15 +27,6 @@ def p_expression_identifier_assign(p):
         p[0] = f"{p[1]} = {p[3]}"
 
 
-# def p_identifier_list(p):
-#     """identifier_list : identifier_list COMMA ID
-#                        | ID"""
-#     if len(p) == 2:
-#         p[0] = p[1]
-#     else:
-#         p[0] = f"{p[1]}, {p[3]}"
-
-
 def p_expression_array(p):
     """expression : ID ASSIGN LCURLY expression_list RCURLY
                   | LOCAL ID ASSIGN LCURLY expression_list RCURLY"""
@@ -75,9 +66,40 @@ def p_prop_list(p):
         p[0] = f"{p[1]}, {p[3]}"
 
 
-# def p_expression_function(p):
-#     """expression : FUNCTION ID LPAREN RPAREN END"""
-#     p[0] = f"function {p[2]}() end"
+def p_identifier_list(p):
+    """identifier_list : identifier_list COMMA ID
+                       | ID"""
+    if len(p) == 2:
+        p[0] = p[1]
+    else:
+        p[0] = f"{p[1]}, {p[3]}"
+
+
+def p_expression_function(p):
+    """expression : FUNCTION ID LPAREN RPAREN END
+                  | FUNCTION ID LPAREN identifier_list RPAREN END"""
+    if len(p) == 6:
+        p[0] = f"function {p[2]}() end"
+    else:
+        p[0] = f"function {p[2]}({p[4]}) end"
+
+
+def p_expression_obj(p):
+    """expression : ID ASSIGN ID COLON NEW LPAREN RPAREN
+                  | ID ASSIGN ID COLON NEW LPAREN expression_list RPAREN
+                  | LOCAL ID ASSIGN ID COLON NEW LPAREN RPAREN
+                  | LOCAL ID ASSIGN ID COLON NEW LPAREN expression_list RPAREN
+                  """
+    if p[1] == 'local':
+        if len(p) == 8:
+            p[0] = f"local {p[2]} = {p[4]}:new()"
+        else:
+            p[0] = f"local {p[2]} = {p[4]}:new({p[8]})"
+    else:
+        if len(p) == 7:
+            p[0] = f"{p[1]} = {p[3]}:new()"
+        else:
+            p[0] = f"{p[1]} = {p[3]}:new({p[7]})"
 
 
 def p_error(p):
